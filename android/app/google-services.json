@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:150298005638:android:1026a5a276c3f5a8790107",
+        "mobilesdk_app_id": "1:150298005638:android:c2a6a9a3488db031790107",
         "android_client_info": {
-          "package_name": "com.myfoozzybusiness"
+          "package_name": "com.tpipay.saithya.smart"
         }
       },
       "oauth_client": [],
