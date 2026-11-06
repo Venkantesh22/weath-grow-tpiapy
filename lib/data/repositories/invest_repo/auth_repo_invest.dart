@@ -1,0 +1,132 @@
+import 'package:get/get_connect.dart';
+import 'package:get/get_connect/http/src/response/response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vlr/data/api/invest_api_client.dart';
+import 'package:vlr/services/constants.dart';
+
+class AuthRepoInvest {
+  final SharedPreferences sharedPreferences;
+  final InvestApiClient investApiClient;
+
+  AuthRepoInvest({
+    required this.sharedPreferences,
+    required this.investApiClient,
+  });
+
+  Future<Response> postLoginInvest({
+    required Map<String, dynamic> data,
+  }) async {
+    return await investApiClient.postData(
+      AppConstants.loginInvest,
+      "postLoginInvest",
+      data,
+      contentType: 'application/json',
+      requiresAuth: false,
+    );
+  }
+
+  Future<Response> fetchProfileInvest() async {
+    return await investApiClient.getData(
+      AppConstants.getUserProfileInvest,
+      "fetchProfileInvest",
+      contentType: 'application/json',
+      requiresAuth: false,
+      headers: investApiClient.getSponsorHeaders(),
+    );
+  }
+
+  Future<Response> updateProfileInvest({required FormData formData}) async {
+    return await investApiClient.postData(
+      AppConstants.postUpdateProfileInvest,
+      "updateProfileInvest",
+      formData,
+      contentType: 'application/json',
+      requiresAuth: false,
+      headers: investApiClient.getSponsorHeaders(),
+    );
+  }
+
+  String getUserToken() {
+    return sharedPreferences.getString(
+          AppConstants.tokenInvest,
+        ) ??
+        '';
+  }
+
+  Future<void> setUserToken(String token) async {
+    await sharedPreferences.setString(
+      AppConstants.tokenInvest,
+      token,
+    );
+
+    investApiClient.updateHeader(token);
+  }
+
+  Future<Response> sendOtpInvest({
+    required Map<String, dynamic> data,
+  }) async {
+    return await investApiClient.postData(
+      AppConstants.sendOtpInvest,
+      "sendOtpInvest",
+      data,
+      contentType: "application/json",
+      requiresAuth: false,
+      headers: investApiClient.getSponsorHeaders(),
+    );
+  }
+
+  Future<Response> resetPasswordInvest({
+    required String username,
+    required String otp,
+    required String password,
+  }) async {
+    final Map<String, dynamic> data = {
+      "username": username.trim(),
+      "otp": otp.trim(),
+      "password": password.trim(),
+    };
+
+    return await investApiClient.postData(
+      AppConstants.resetPasswordInvest,
+      "resetPasswordInvest",
+      data,
+      contentType: "application/json",
+      requiresAuth: false,
+      headers: investApiClient.getSponsorHeaders(),
+    );
+  }
+
+  Future<Response> changePasswordInvest({
+    required  Map<String, dynamic> body,
+  }) async {
+    
+    return await investApiClient.postData(
+      AppConstants.changePasswordInvest,
+      "changePasswordInvest",
+      body,
+      contentType: "application/json",
+      requiresAuth: false,
+      headers: investApiClient.getSponsorHeaders(),
+    );
+  }
+
+  String getUserId() {
+    return sharedPreferences.getString(
+          AppConstants.userId,
+        ) ??
+        '';
+  }
+
+  bool isLoggedIn() {
+    return getUserToken().isNotEmpty;
+  }
+
+  bool clearSharedData() {
+    sharedPreferences.remove(AppConstants.tokenInvest);
+    sharedPreferences.remove(AppConstants.userId);
+
+    investApiClient.clearToken();
+
+    return true;
+  }
+}

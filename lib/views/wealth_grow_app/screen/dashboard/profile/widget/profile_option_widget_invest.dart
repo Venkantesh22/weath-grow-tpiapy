@@ -1,0 +1,124 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vlr/services/constants.dart';
+import 'package:vlr/services/custom_text.dart';
+import 'package:vlr/views/wealth_grow_app/investment_app.dart';
+import 'package:vlr/views/wealth_grow_app/screen/widget/web_views/web_views_widget.dart';
+
+class ProfileOptionWidgetInvest extends StatelessWidget {
+  final ProfileOptionModel profileOptionModel;
+  const ProfileOptionWidgetInvest(
+      {super.key, required this.profileOptionModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: profileOptionModel.onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16.h),
+        child: Row(
+          children: [
+            Icon(
+              profileOptionModel.icon,
+              size: 20,
+            ),
+            sizedBoxWidth(width: 14.w),
+            Expanded(
+              child: CustomText(
+                profileOptionModel.title,
+                style: Helper(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(fontSize: 14.sp),
+              ),
+            ),
+            Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 14.sp,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileOptionModel {
+  final String title;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  ProfileOptionModel(
+      {required this.title, required this.icon, required this.onTap});
+}
+
+List<ProfileOptionModel> profileOptionModelList(
+        {required BuildContext context}) =>
+    [
+      ProfileOptionModel(
+          title: "Bank Accounts",
+          icon: Icons.account_balance_outlined,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              InvestmentApp.bankListScreenInvest,
+            );
+          }),
+      ProfileOptionModel(
+          title: "WelthGrow Deposit Funds",
+          icon: Icons.info_outline_rounded,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              InvestmentApp.welthGrowDepositFunds,
+            );
+          }),
+      ProfileOptionModel(
+          title: "Refer & Earn",
+          icon: Icons.person_add_alt,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              InvestmentApp.referScreen,
+            );
+          }),
+      ProfileOptionModel(
+          title: "Ticket",
+          icon: Icons.help_center_outlined,
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              InvestmentApp.ticketScreenInvest,
+            );
+          }),
+      ProfileOptionModel(
+          title: "Help & Support",
+          icon: Icons.support_agent,
+          onTap: () {
+             Navigator.of(context).pushNamed(
+              InvestmentApp.helpAndSuppScreen,
+            );
+          }),
+      ProfileOptionModel(
+          title: "Privacy Policy",
+          icon: Icons.privacy_tip_outlined,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const WebViewScreenInvest(
+                  title: 'Privacy Policy',
+                  url: AppConstants.privacyPolicyLinkInvest,
+                ),
+              ),
+            );
+          }),
+      ProfileOptionModel(
+          title: "Terms & Conditions",
+          icon: Icons.policy_outlined,
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const WebViewScreenInvest(
+                  title: 'Terms & Conditions',
+                  url: AppConstants.termLinkInvest,
+                ),
+              ),
+            );
+          }),
+    ];
