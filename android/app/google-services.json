@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "304281412537",
-    "project_id": "feetrack-d7036",
-    "storage_bucket": "feetrack-d7036.firebasestorage.app"
+    "project_number": "150298005638",
+    "project_id": "wealth-grow-a7606",
+    "storage_bucket": "wealth-grow-a7606.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:304281412537:android:1d84e37f86eeeb27fc0c68",
+        "mobilesdk_app_id": "1:150298005638:android:1026a5a276c3f5a8790107",
         "android_client_info": {
           "package_name": "com.myfoozzybusiness"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAMjhpB-JaqlSuC8qckmm2PPAi1hg3Mtkg"
+          "current_key": "AIzaSyBaCZp0oiD11qaxpX07Lz-tufhsLN7neTo"
         }
       ],
       "services": {

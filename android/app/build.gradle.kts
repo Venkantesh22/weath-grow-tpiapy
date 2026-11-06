@@ -29,8 +29,8 @@ val keystoreProperties = Properties().apply {
     }
 }
 android {
-//    namespace = "com.myfoozzybusiness"
-    namespace = "com.myfoozzybusiness"
+//    namespace = "com.tpipay.saithya.smart"
+    namespace = "com.tpipay.saithya.smart"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -54,7 +54,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.myfoozzybusiness"
+        applicationId = "com.tpipay.saithya.smart"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode

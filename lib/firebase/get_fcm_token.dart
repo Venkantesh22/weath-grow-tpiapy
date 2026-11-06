@@ -28,14 +28,16 @@ Future<String> _downloadAndSaveFile(String url, String fileName) async {
 /// ✅ Robust method to show notification with Image & Data support
 Future<void> _showNotificationWithPayload(RemoteMessage message) async {
   // Extract Title and Body from notification or data
-  String? title = message.notification?.title ?? message.data['title'] ?? "No Title";
-  String? body = message.notification?.body ?? message.data['body'] ?? "No Body";
-  
+  String? title =
+      message.notification?.title ?? message.data['title'] ?? "No Title";
+  String? body =
+      message.notification?.body ?? message.data['body'] ?? "No Body";
+
   // Extract Image URL from various possible keys
-  String? imageUrl = message.notification?.android?.imageUrl ?? 
-                    message.data['image'] ?? 
-                    message.data['imageUrl'] ?? 
-                    message.data['img_url'];
+  String? imageUrl = message.notification?.android?.imageUrl ??
+      message.data['image'] ??
+      message.data['imageUrl'] ??
+      message.data['img_url'];
 
   BigPictureStyleInformation? bigPictureStyleInformation;
   String? bigPicturePath;
@@ -43,7 +45,8 @@ Future<void> _showNotificationWithPayload(RemoteMessage message) async {
   if (imageUrl != null && imageUrl.isNotEmpty) {
     try {
       // Download image for big picture
-      bigPicturePath = await _downloadAndSaveFile(imageUrl, 'bigPicture_${Random().nextInt(1000)}');
+      bigPicturePath = await _downloadAndSaveFile(
+          imageUrl, 'bigPicture_${Random().nextInt(1000)}');
 
       bigPictureStyleInformation = BigPictureStyleInformation(
         FilePathAndroidBitmap(bigPicturePath),
@@ -74,7 +77,9 @@ Future<void> _showNotificationWithPayload(RemoteMessage message) async {
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
-      attachments: bigPicturePath != null ? [DarwinNotificationAttachment(bigPicturePath)] : null,
+      attachments: bigPicturePath != null
+          ? [DarwinNotificationAttachment(bigPicturePath)]
+          : null,
     ),
   );
 
@@ -91,7 +96,7 @@ Future<void> _showNotificationWithPayload(RemoteMessage message) async {
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -270,4 +275,3 @@ class NotificationServices {
     });
   }
 }
- 

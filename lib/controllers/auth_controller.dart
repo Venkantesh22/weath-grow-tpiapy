@@ -32,13 +32,10 @@ class AuthController extends GetxController implements GetxService {
 
   bool updateProfileLoading = false;
 
-  TextEditingController fullNameController =
-      TextEditingController();
+  TextEditingController fullNameController = TextEditingController();
   TextEditingController dobController = TextEditingController();
-  TextEditingController emailController =
-      TextEditingController();
-  TextEditingController mobileNoController =
-      TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController mobileNoController = TextEditingController();
   String? gender;
   List<String> genderList = ["Male", "Female", "Other"];
 
@@ -52,8 +49,7 @@ class AuthController extends GetxController implements GetxService {
 
   //* Register TextEditingControllers
 
-   final TextEditingController passwordController =
-      TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   TextEditingController mobileOtpCodeController = TextEditingController();
   TextEditingController emailOtpCodeController = TextEditingController();
@@ -477,8 +473,8 @@ class AuthController extends GetxController implements GetxService {
         responseModel = ResponseModel(
             true, response.body['message'] ?? "Account deleted successfully");
       } else {
-        responseModel = ResponseModel(false,
-            response.body['message'] ?? "Error while deleting account");
+        responseModel = ResponseModel(
+            false, response.body['message'] ?? "Error while deleting account");
       }
     } catch (e) {
       log('ERROR AT deleteAccount(): $e');
@@ -507,13 +503,13 @@ class AuthController extends GetxController implements GetxService {
 
       if (profileImage != null) {
         data['profile_image'] = MultipartFile(profileImage!,
-            filename:
-                'profile_${DateTime.now().millisecondsSinceEpoch}.jpg');
+            filename: 'profile_${DateTime.now().millisecondsSinceEpoch}.jpg');
       }
 
       // Use POST instead of PUT because many servers (like Laravel) don't support
       // multipart/form-data in real PUT requests. We use _method=PUT above.
-      Response response = await authRepo.postProfileUpdate(data: FormData(data));
+      Response response =
+          await authRepo.postProfileUpdate(data: FormData(data));
 
       log("Update Profile Response: ${response.body}");
 
@@ -523,13 +519,12 @@ class AuthController extends GetxController implements GetxService {
         responseModel = ResponseModel(
             true, response.body['message'] ?? "Profile updated successfully");
       } else {
-        responseModel = ResponseModel(false,
-            response.body?['message'] ?? "Error while updating profile");
+        responseModel = ResponseModel(
+            false, response.body?['message'] ?? "Error while updating profile");
       }
     } catch (e) {
       log('ERROR AT updateProfile(): $e');
-      responseModel =
-          ResponseModel(false, "Error while updating profile: $e");
+      responseModel = ResponseModel(false, "Error while updating profile: $e");
     }
 
     isLoading = false;
@@ -571,7 +566,7 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
- TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   Future<ResponseModel> verifyOTP({required String opt}) async {
     log('----------- verifyOTP Called ----------');
 
@@ -608,8 +603,6 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
-
-
   Future<ResponseModel> getOTP() async {
     log('----------- getOTP Called ----------');
 
@@ -643,9 +636,6 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
-
-
-
   Future<void> saveFMCToken(String fcmToken) async {
     final saveFCMToken = await authRepo.saveFCMToken(fcmToken: fcmToken);
     log('loginUser: saved FCM token: $saveFCMToken');
@@ -667,11 +657,4 @@ class AuthController extends GetxController implements GetxService {
   String getUserToken() {
     return authRepo.getUserToken();
   }
-
-
-
-  
-
-
-
 }
